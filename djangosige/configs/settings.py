@@ -1,8 +1,10 @@
 import os
+import django_heroku
 from decouple import config, Csv
 from dj_database_url import parse as dburl
 from .configs import DEFAULT_DATABASE_URL, DEFAULT_FROM_EMAIL, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(APP_ROOT))
 
@@ -108,10 +110,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-#LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'pt-br'
 
-#TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
@@ -123,12 +125,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+#
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(APP_ROOT, 'static'),
 ]
+
 
 FIXTURE_DIRS = [
     os.path.join(APP_ROOT, 'fixtures'),
@@ -145,3 +148,6 @@ LOGIN_NOT_REQUIRED = (
     r'/login/trocarsenha/',
     r'/logout/',
 )
+
+# Activate Django-Heroku.
+django_heroku.settings(locals(), test_runner=False)
